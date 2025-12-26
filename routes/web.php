@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\DashboardPayment;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FormController;
 use Illuminate\Support\Facades\Auth;
+use App\Models\RegistrationPeriod;
 
 Route::get('/', function () {
   return view('welcome');
@@ -13,6 +15,18 @@ Route::get('/pembuka', function () {
   return view('pembuka');
 })->middleware(['auth', 'verified'])->name('pembuka');
 
+Route::get('/cek-verifikasi', function () {
+  /** @var \App\Models\User $user */
+  $user = Auth::user();
+
+  // Eager load semua relasi terkait verifikasi
+  $user->load(['validity', 'payment', 'document']);
+
+  return view('camaba.verifikasi.index', [
+    'user' => $user,
+    'validity' => $user->validity
+  ]);
+})->middleware(['auth', 'verified'])->name('verifikasi.index');
 
 Route::get('/cek-pembayaran', function () {
   /** @var \App\Models\User $user */
@@ -63,21 +77,25 @@ Route::middleware(['auth', 'verified'])->group(function () {
     ]);
   })->name('isi-dokumen');
 
-
+  // routes/web.php
   Route::get('/formulir/pembayaran', function () {
-    return view('camaba.formulir.payment');
-  })->name('formulir.pembayaran');
+    $user = Auth::user();
 
+    // Ambil data hanya berdasarkan status aktif (abaikan filter jam dulu)
+    $activeWave = RegistrationPeriod::where('is_active', true)->first();
+
+    return view('camaba.formulir.payment', [
+      'activeWave' => $activeWave,
+      'user' => $user,
+      'payment' => $user?->payment,
+      'validity' => $user?->validity,
+    ]);
+  })->middleware(['auth', 'verified'])->name('formulir.pembayaran');
 
   Route::get('/formulir/isi-form', function () {
     return view('camaba.formulir.create');
   })->name('isi-formulir');
 
-
-  // Halaman Pembayaran
-  Route::get('/formulir/pembayaran', function () {
-    return view('camaba.formulir.payment');
-  })->name('formulir.pembayaran');
 
 
   Route::post('/formulir/isi-form', [FormController::class, 'storeIdentity'])->name('form.store');
@@ -92,9 +110,14 @@ Route::middleware(['auth', 'verified', 'admin'])
     Route::get('/dashboard', function () {
       return view('admin.dashboard.index');
     })->name('dashboard');
+
     Route::get('/dashboard/list-pendaftar', function () {
       return view('admin.dashboard.pendaftar.index');
     })->name('dashboard.pendaftar');
+
+    Route::patch('/pembayaran/{id}', [DashboardPayment::class, 'updateStatus'])->name('admin.pembayaran.update');
+
+    Route::get('/dashboard/pembayaran', [DashboardPayment::class, 'index'])->name('pembayaran');
   });
 
 Route::middleware('auth')->group(function () {

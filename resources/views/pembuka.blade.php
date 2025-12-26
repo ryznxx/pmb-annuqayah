@@ -83,6 +83,7 @@
               </div>
             </a>
 
+            <a href="/cek-verifikasi">
             <div class="flex flex-col items-center text-center group">
               <div
                 class="w-20 h-20 bg-white border-[6px] border-slate-50 flex items-center justify-center rounded-full shadow-lg text-indigo-600 font-black text-2xl mb-6 group-hover:scale-110 group-hover:border-indigo-100 transition-all duration-300">
@@ -92,7 +93,8 @@
               <p class="text-xs text-slate-500 leading-relaxed px-2">Data Anda akan divalidasi oleh Panitia PMB dalam
                 waktu maksimal 1x24 jam.</p>
             </div>
-
+            </a>
+            
             <div class="flex flex-col items-center text-center group">
               <div
                 class="w-20 h-20 bg-white border-[6px] border-slate-50 flex items-center justify-center rounded-full shadow-xl shadow-indigo-100 text-indigo-600 font-black text-2xl mb-6 group-hover:scale-110 transition-all duration-300">

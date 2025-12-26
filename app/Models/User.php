@@ -75,4 +75,9 @@ class User extends Authenticatable
   {
     return $this->hasOne(Payment::class);
   }
+
+  public function validity(): HasOne
+  {
+    return $this->hasOne(Validity::class, 'user_id');
+  }
 }
