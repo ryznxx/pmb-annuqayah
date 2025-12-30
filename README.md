@@ -21,7 +21,7 @@ Sistem Informasi **Penerimaan Mahasiswa Baru (PMB)** Universitas Annuqayah adala
 * **Starter Kit:** [Laravel Breeze](https://www.google.com/search?q=https://laravel.com/docs/11.x/starter-kits%23laravel-breeze) (Blade & Alpine.js)
 * **CSS Framework:** [Tailwind CSS](https://tailwindcss.com)
 * **Database:** MySQL / MariaDB
-* **Icons:** Heroicons / FontAwesome
+* **Icons:** Google Icon
 
 
 
