@@ -154,10 +154,10 @@
                                             title="Detail Pendaftar">
                                             <span class="material-symbols-outlined text-[20px]">visibility</span>
                                         </a>
-                                        <button onclick="confirmDelete('{{ $user->id }}')"
+                                        {{-- <button onclick="confirmDelete('{{ $user->id }}')"
                                             class="h-10 w-10 flex items-center justify-center rounded-2xl bg-white border border-slate-100 text-slate-400 hover:text-rose-600 hover:border-rose-200 hover:shadow-sm transition-all shadow-none">
                                             <span class="material-symbols-outlined text-[20px]">delete</span>
-                                        </button>
+                                        </button> --}}
                                     </div>
                                 </td>
                             </tr>

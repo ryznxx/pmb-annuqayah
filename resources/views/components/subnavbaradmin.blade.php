@@ -1,4 +1,4 @@
-<div class="bg-white border-b border-slate-200 sticky top-[73px] z-30">
+<div class="bg-white border-b border-slate-200 sticky top-[70px] z-30">
     <div class="max-w-7xl mx-auto lg:px-0 px-4">
         <div class="flex items-center gap-3 py-4 overflow-x-auto no-scrollbar outline-none">
 

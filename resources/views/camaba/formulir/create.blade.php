@@ -3,9 +3,7 @@
 
     @php
         $user = $user ?? auth()->user();
-        $validity = $user->validity;
-
-        $isLocked = $validity ? $validity->is_data_valid == 1 && $validity->final_status !== 'invalid' : false;
+        $isLocked = $user->validity->is_data_valid == 1;
     @endphp
 
     <div class="min-h-screen bg-slate-50 py-10 px-4">
@@ -18,6 +16,8 @@
                     {{ session('success') }}
                 </div>
             @endif
+
+
 
             @if ($isLocked)
                 <div class="mb-8 flex gap-4 p-4 bg-indigo-50 border border-indigo-200 rounded-2xl">
@@ -36,6 +36,14 @@
                         <strong>Ijazah</strong> terakhir.
                     </p>
                 </div>
+                @if ($user->identity?->birth_place && $user->identity?->nik && !$isLocked)
+                    <div
+                        class="mb-4 p-4 bg-green-100 border border-green-200 text-green-700 rounded-2xl flex items-center gap-2">
+                        <span class="material-symbols-outlined">check_circle</span>
+                        <span>Data identitas telah dilengkapi, Menunggu diverifikasi admin. (apabila berkas belum di
+                            verifikasi hingga 7 hari mendatang hubungi admin)</span>
+                    </div>
+                @endif
             @endif
 
             {{-- Tambahkan Fallback Error Global --}}

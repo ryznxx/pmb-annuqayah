@@ -34,10 +34,20 @@ class RegisteredUserController extends Controller
   {
     $request->validate([
       'name' => ['required', 'string', 'max:255'],
-      'nik' => ['required', 'string', 'max:255'],
+      'nik' => [
+        'required',
+        'numeric',    // Memastikan hanya angka
+        'digits:16',  // Memastikan tepat 16 digit
+        'unique:users,nik' // Pastikan NIK belum terdaftar di tabel users
+      ],
       'nama_ibu' => ['required', 'string', 'max:255'],
       'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
       'password' => ['required', 'confirmed', Rules\Password::defaults()],
+    ], [
+      // Custom message agar user tidak bingung
+      'nik.digits' => 'NIK harus berjumlah 16 digit.',
+      'nik.numeric' => 'NIK harus berupa angka.',
+      'nik.unique' => 'NIK ini sudah terdaftar di sistem.',
     ]);
 
     $user = DB::transaction(function () use ($request) {
