@@ -37,7 +37,7 @@
                 <div>
                     <label class="block text-sm font-bold text-slate-700 mb-3">Tanggal Lahir Ayah</label>
                     <input type="date" name="tgl_lahir_ayah"
-                        value="{{ old('tgl_lahir_ayah', $user->registration->studentFamily->tgl_lahir_ayah ?? '') }}"
+                        value="{{ old('tgl_lahir_ayah', isset($user->registration->studentFamily->tgl_lahir_ayah) ? $user->registration->studentFamily->tgl_lahir_ayah->format('Y-m-d') : '') }}"
                         {{ $isLocked ? 'readonly' : '' }}
                         class="w-full px-5 py-3.5 rounded-2xl border-slate-200 focus:ring-4 focus:ring-sky-500/10 focus:border-sky-500 transition-all">
                 </div>
@@ -115,8 +115,9 @@
                 <div>
                     <label class="block text-sm font-bold text-slate-700 mb-3">Tanggal Lahir Ibu</label>
                     <input type="date" name="tgl_lahir_ibu"
-                        value="{{ old('tgl_lahir_ibu', $user->registration->studentFamily->tgl_lahir_ibu ?? '') }}"
-                        {{ $isLocked ? 'readonly' : '' }} class="w-full px-5 py-3.5 rounded-2xl border-slate-200">
+                        value="{{ old('tgl_lahir_ibu', isset($user->registration->studentFamily->tgl_lahir_ibu) ? $user->registration->studentFamily->tgl_lahir_ibu->format('Y-m-d') : '') }}"
+                        {{ $isLocked ? 'readonly' : '' }}
+                        class="w-full px-5 py-3.5 rounded-2xl border-slate-200 focus:ring-4 focus:ring-sky-500/10 focus:border-sky-500 transition-all">
                 </div>
 
                 <div>

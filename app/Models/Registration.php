@@ -25,17 +25,17 @@ class Registration extends Model
 
   public function studentProfile()
   {
-    return $this->hasOne(StudentProfile::class);
+    return $this->hasOne(StudentProfile::class, 'registration_id');
   }
 
   public function studentFamily()
   {
-    return $this->hasOne(StudentFamily::class);
+    return $this->hasOne(StudentFamily::class, 'registration_id');
   }
 
   public function studentDetails()
   {
-    return $this->hasOne(StudentDetails::class);
+    return $this->hasOne(StudentDetails::class, 'registration_id');
   }
 
   public function period(): BelongsTo

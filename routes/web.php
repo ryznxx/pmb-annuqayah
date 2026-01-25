@@ -63,7 +63,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 
 
-  Route::get('/formulir/isi-form', [FormController::class, 'createIdentity'])->name('isi-formulir');
+  // Route::get('/formulir/isi-form', [FormController::class, 'createIdentity'])->name('isi-formulir');
   Route::get('/formulir/isi-form/upload-dokumen', [FormController::class, 'createDocuments'])->name('isi-dokumen');
 
   // routes/web.php
@@ -95,7 +95,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
   Route::post('/exams/{exam}/submit', [App\Http\Controllers\Student\ExamController::class, 'store'])->name('exams.store');
 
 
-  Route::post('/formulir/isi-form', [FormController::class, 'storeIdentity'])->name('form.store');
+  // Route::post('/formulir/isi-form', [FormController::class, 'storeIdentity'])->name('form.store');
   Route::post('/formulir/isi-form/upload-dokumen', [FormController::class, 'storeDocuments'])->name('dokumen.store');
   Route::post('/formulir/pembayaran', [FormController::class, 'storePayment'])->name('payment.store');
   Route::get('/documents/{type}', [FormController::class, 'viewStoreDocument'])

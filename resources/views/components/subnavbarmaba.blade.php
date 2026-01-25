@@ -8,8 +8,8 @@
                 <span class="text-sm font-bold whitespace-nowrap">Index</span>
             </a>
 
-            <a href="{{ route('isi-formulir') }}"
-                class="flex-none flex items-center gap-2 px-5 py-2.5 rounded-xl border transition-all duration-200 {{ request()->routeIs('isi-formulir') ? 'bg-slate-500 border-slate-700 text-white shadow-lg shadow-slate-100' : 'bg-slate-50 border-slate-200 text-slate-600 hover:bg-white hover:border-indigo-400 hover:text-indigo-600' }}">
+            <a href="{{ route('student.index') }}"
+                class="flex-none flex items-center gap-2 px-5 py-2.5 rounded-xl border transition-all duration-200 {{ request()->routeIs('isi-form') ? 'bg-slate-500 border-slate-700 text-white shadow-lg shadow-slate-100' : 'bg-slate-50 border-slate-200 text-slate-600 hover:bg-white hover:border-indigo-400 hover:text-indigo-600' }}">
                 <span class="material-symbols-outlined !text-[20px]">assignment_add</span>
                 <span class="text-sm font-bold whitespace-nowrap">Data Camaba</span>
             </a>

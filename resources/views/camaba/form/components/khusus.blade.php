@@ -47,7 +47,7 @@
         <div>
             <label class="block text-sm font-semibold text-slate-700 mb-2">Kebutuhan Khusus Ayah</label>
             <input type="text" name="kebutuhan_khusus_ayah"
-                value="{{ old('kebutuhan_khusus_ayah', $user->registration->studentFamily->kebutuhan_khusus_ayah ?? '') }}"
+                value="{{ old('kebutuhan_khusus_ayah', $user->registration->studentDetails->kebutuhan_khusus_ayah ?? '') }}"
                 {{ $isLocked ? 'readonly' : '' }} placeholder="Contoh: Tidak ada"
                 class="w-full px-4 py-3 rounded-xl border-slate-200 {{ $isLocked ? 'bg-slate-50 text-slate-500' : '' }}">
         </div>
@@ -56,7 +56,7 @@
         <div>
             <label class="block text-sm font-semibold text-slate-700 mb-2">Kebutuhan Khusus Ibu</label>
             <input type="text" name="kebutuhan_khusus_ibu"
-                value="{{ old('kebutuhan_khusus_ibu', $user->registration->studentFamily->kebutuhan_khusus_ibu ?? '') }}"
+                value="{{ old('kebutuhan_khusus_ibu', $user->registration->studentDetails->kebutuhan_khusus_ibu ?? '') }}"
                 {{ $isLocked ? 'readonly' : '' }} placeholder="Contoh: Tidak ada"
                 class="w-full px-4 py-3 rounded-xl border-slate-200 {{ $isLocked ? 'bg-slate-50 text-slate-500' : '' }}">
         </div>
