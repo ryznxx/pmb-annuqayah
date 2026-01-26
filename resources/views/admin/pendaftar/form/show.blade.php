@@ -1,5 +1,5 @@
 <x-app-layout>
-    <x-subnavbarmaba />
+    <x-subnavbaradmin />
 
 
     <div class="min-h-screen bg-slate-50 py-10 px-4">
@@ -14,52 +14,13 @@
             @endif
 
 
-            @if ($isLocked)
-                {{-- Tampilan saat data SUDAH TERKUNCI --}}
-                <div class="mb-8 flex gap-4 p-4 bg-indigo-50 border border-indigo-200 rounded-2xl">
-                    <span class="material-symbols-outlined text-indigo-600">lock</span>
-                    <div>
-                        <p class="text-sm font-bold text-indigo-900">Data Terkunci & Tersimpan</p>
-                        <p class="text-sm text-indigo-800">Identitas Anda telah berhasil difinalisasi. Silakan lanjut ke
-                            tahap berikutnya.</p>
-                    </div>
-                </div>
-            @else
-                {{-- Tampilan saat data BELUM TERKUNCI --}}
-                <div class="mb-8 flex gap-4 p-4 bg-amber-50 border border-amber-200 rounded-2xl">
-                    <span class="material-symbols-outlined text-amber-600">info</span>
-                    <p class="text-sm text-amber-800">
-                        Pastikan data yang Anda masukkan sesuai
-                    </p>
-                </div>
+            <div class="mb-8 flex gap-4 p-4 bg-blue-50 border border-blue-200 rounded-2xl">
+                <span class="material-symbols-outlined text-blue-600">info</span>
+                <p class="text-sm text-blue-800">
+                    Anda Mengedit Data Pendaftar
+                </p>
+            </div>
 
-                {{-- Notifikasi khusus jika sudah isi tapi belum diverifikasi (is_data_valid masih 0) --}}
-                @if ($user->isDataLengkap())
-                    <div class="mb-6 p-5 bg-emerald-50 border border-emerald-200 rounded-3xl flex items-center gap-4">
-                        <div
-                            class="w-12 h-12 bg-emerald-500 rounded-2xl flex items-center justify-center shadow-lg shadow-emerald-100 shrink-0">
-                            <span class="material-symbols-outlined text-gray-600">verified</span>
-                        </div>
-                        <div>
-                            <h4 class="text-emerald-900 font-bold">Data Berhasil Dilengkapi</h4>
-                            <p class="text-emerald-700 text-sm">Terima kasih! Seluruh formulir pendaftaran telah terisi
-                                dengan benar. Mohon tunggu proses verifikasi admin.</p>
-                        </div>
-                    </div>
-                @else
-                    <div class="mb-6 p-5 bg-amber-50 border border-amber-200 rounded-3xl flex items-center gap-4">
-                        <div
-                            class="w-12 h-12 bg-amber-500 rounded-2xl flex items-center justify-center shadow-lg shadow-amber-100 shrink-0">
-                            <span class="material-symbols-outlined text-gray-600">pending</span>
-                        </div>
-                        <div>
-                            <h4 class="text-amber-900 font-bold">Data Belum Lengkap</h4>
-                            <p class="text-amber-700 text-sm">Silakan lengkapi seluruh tab formulir (Alamat, Ortu, dan
-                                Kebutuhan Khusus) sebelum mengirim data.</p>
-                        </div>
-                    </div>
-                @endif
-            @endif
 
             {{-- Tambahkan Fallback Error Global --}}
             @if ($errors->any())

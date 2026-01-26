@@ -159,6 +159,7 @@ class StudentFormController extends Controller
       'gender'      => 'required|in:L,P',
       'entry_path'  => 'required',
       'study_program' => 'required',
+      'study_program_second' => 'required',
 
       'kewarganegaraan' => 'required|string',
       'nisn'            => 'required|digits:10',
@@ -175,6 +176,7 @@ class StudentFormController extends Controller
       'nik_identity.digits' => 'NIK Mahasiswa harus 16 digit.',
       'nisn.digits'         => 'NISN harus berjumlah 10 digit.',
       'hp.required'         => 'Nomor HP wajib diisi.',
+      'study_program_second.required' => 'Pilihan Program Studi 2 wajib diisi.',
     ]);
 
     DB::transaction(function () use ($request, $user) {
@@ -194,6 +196,7 @@ class StudentFormController extends Controller
         'school_origin'      => $request->school_origin,
         'graduation_year'    => $request->graduation_year,
         'study_program_id'   => $request->study_program,
+        'study_program_id_second'   => $request->study_program_second,
       ]);
 
       // C. Update Student Profile (NISN, Religion, dll)

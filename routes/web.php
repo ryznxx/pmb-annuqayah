@@ -115,6 +115,8 @@ Route::middleware(['auth', 'verified', 'admin'])
   ->prefix('admin')
   ->name('admin.')
   ->group(function () {
+    require __DIR__ . '/admin/route.php';
+
     Route::get('/dashboard', function () {
       return view('admin.dashboard.index');
     })->name('dashboard');
