@@ -39,7 +39,7 @@ class CalonMahasiswaExport implements FromQuery, WithHeadings, WithMapping
       default         => $query,
     };
   }
-
+  //
   public function headings(): array
   {
     return ['No. Pendaftaran', 'Nama Lengkap', 'NIK', 'Prodi', 'Asal Sekolah', 'Tahun Lulus', 'Status Verifikasi'];
