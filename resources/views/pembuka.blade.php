@@ -65,6 +65,16 @@
                                     class="w-20 h-20 bg-white border-[6px] border-slate-50 flex items-center justify-center rounded-full shadow-lg text-indigo-600 font-black text-2xl mb-6 group-hover:scale-110 group-hover:border-indigo-100 transition-all duration-300">
                                     01
                                 </div>
+                                <h4 class="font-bold text-slate-900 mb-2 tracking-tight">Daftar</h4>
+                                <p class="text-xs text-slate-500 leading-relaxed px-2">Pilih Jalur Gelombang.</p>
+                            </div>
+                        </a>
+                        <a href="/formulir/isi-form">
+                            <div class="flex flex-col items-center text-center group">
+                                <div
+                                    class="w-20 h-20 bg-white border-[6px] border-slate-50 flex items-center justify-center rounded-full shadow-lg text-indigo-600 font-black text-2xl mb-6 group-hover:scale-110 group-hover:border-indigo-100 transition-all duration-300">
+                                    01
+                                </div>
                                 <h4 class="font-bold text-slate-900 mb-2 tracking-tight">Isi Formulir</h4>
                                 <p class="text-xs text-slate-500 leading-relaxed px-2">Lengkapi data diri dan unggah
                                     berkas asli pada
@@ -78,23 +88,11 @@
                                     class="w-20 h-20 bg-white border-[6px] border-slate-50 flex items-center justify-center rounded-full shadow-lg text-indigo-600 font-black text-2xl mb-6 group-hover:scale-110 group-hover:border-indigo-100 transition-all duration-300">
                                     02
                                 </div>
-                                <h4 class="font-bold text-slate-900 mb-2 tracking-tight">Pembayaran</h4>
-                                <p class="text-xs text-slate-500 leading-relaxed px-2">Bayar tagihan pendaftaran melalui
+                                <h4 class="font-bold text-slate-900 mb-2 tracking-tight">Keuangan</h4>
+                                <p class="text-xs text-slate-500 leading-relaxed px-2">Pembayaran tagihan pendaftaran
+                                    melalui
                                     transfer
                                     bank/e-wallet yang tersedia.</p>
-                            </div>
-                        </a>
-
-                        <a href="/cek-verifikasi">
-                            <div class="flex flex-col items-center text-center group">
-                                <div
-                                    class="w-20 h-20 bg-white border-[6px] border-slate-50 flex items-center justify-center rounded-full shadow-lg text-indigo-600 font-black text-2xl mb-6 group-hover:scale-110 group-hover:border-indigo-100 transition-all duration-300">
-                                    03
-                                </div>
-                                <h4 class="font-bold text-slate-900 mb-2 tracking-tight">Verifikasi Berkas</h4>
-                                <p class="text-xs text-slate-500 leading-relaxed px-2">Data Anda akan divalidasi oleh
-                                    Panitia PMB dalam
-                                    waktu maksimal 1x24 jam.</p>
                             </div>
                         </a>
 

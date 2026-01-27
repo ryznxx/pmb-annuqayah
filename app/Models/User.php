@@ -89,6 +89,16 @@ class User extends Authenticatable
     return $this->belongsTo(RegistrationPeriod::class, 'registration_period_id');
   }
 
+  public function examSession(): HasOne
+  {
+    return $this->hasOne(ExamSession::class, 'user_id', 'id');
+  }
+
+  public function period()
+  {
+    return $this->belongsTo(RegistrationPeriod::class, 'registration_period_id');
+  }
+
   public function customFieldValues()
   {
     return $this->hasMany(CustomFieldValue::class);

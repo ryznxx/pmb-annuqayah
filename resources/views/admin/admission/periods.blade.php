@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-subnavbaradmin />
-    <div class="mx-auto max-w-7xl py-10 px-4">
+    <div class="mx-auto max-w-7xl py-8 lg:px-0 px-4">
         <div class="mb-8">
             <h1 class="text-2xl font-black text-slate-800 uppercase tracking-widest">Gelombang Pendaftaran</h1>
             <p class="text-sm text-slate-500">Atur masa aktif dan biaya pendaftaran.</p>
