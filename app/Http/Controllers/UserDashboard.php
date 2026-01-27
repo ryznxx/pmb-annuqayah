@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Payment;
+use App\Models\Registration;
 use Illuminate\Http\Request;
 use App\Models\RegistrationPeriod;
 use App\Models\User;
@@ -57,46 +59,59 @@ class UserDashboard extends Controller
 
   public function validateData(Request $request, $id)
   {
-    // Gunakan Transaction untuk keamanan data
     return DB::transaction(function () use ($request, $id) {
-
+      // Gunakan firstOrNew agar tidak error jika data payment belum ada
+      $user = User::findOrFail($id);
+      $payment = Payment::firstOrNew(['user_id' => $id]);
       $validity = Validity::firstOrNew(['user_id' => $id]);
 
-      // 1. Validasi Identitas (dari tombol di div Identitas)
+      // 1. Validasi Identitas
       if ($request->has('set_data')) {
         $validity->is_data_valid = ($request->set_data === 'valid');
       }
 
-      // 2. Validasi Berkas/Pembayaran (dari tombol di div Berkas)
+      // 2. Validasi Pembayaran (SINKRONKAN DI SINI)
       if ($request->has('set_payment')) {
-        $validity->is_payment_valid = ($request->set_payment === 'valid');
+        $status = $request->set_payment; // 'valid' atau 'invalid'
+        $validity->is_payment_valid = ($status === 'valid');
+
+        // Update juga kolom status di tabel payments
+        $payment->status = $status;
+        $payment->save();
       }
 
-      // 3. Validasi Universal / Keputusan Akhir
+      // 3. Keputusan Kelulusan (Tabel registrations)
+      if ($request->has('set_graduation')) {
+        Registration::where('user_id', $id)->update([
+          'status_kelulusan' => $request->set_graduation
+        ]);
+      }
+
+      // 4. Verifikasi Data Final (Tabel users & validities)
       if ($request->has('final_status')) {
-        $status = $request->final_status; // 'valid', 'invalid', atau 'pending'
+        $status = $request->final_status;
         $validity->final_status = $status;
 
-        // Sinkronisasi ke tabel Users
         User::where('id', $id)->update(['status' => $status]);
 
-        // Shortcut: Jika "Terima Semua", otomatis centang sub-bagian
         if ($status === 'valid') {
           $validity->is_data_valid = true;
           $validity->is_payment_valid = true;
+          $user->status = 'valid';
+          $user->save();
+          $payment->status = 'success';
+          $payment->save();
         }
       }
 
-      // 4. Catatan Admin
       if ($request->has('admin_note')) {
         $validity->admin_note = $request->admin_note;
       }
 
-      // Set waktu verifikasi setiap ada perubahan
       $validity->verified_at = now();
       $validity->save();
 
-      return back()->with('success', 'Status verifikasi pendaftar berhasil diperbarui.');
+      return back()->with('success', 'Perubahan berhasil disimpan.');
     });
   }
 

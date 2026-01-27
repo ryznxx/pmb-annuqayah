@@ -11,7 +11,18 @@ use App\Models\Student\StudentDetails;
 class Registration extends Model
 {
 
-  protected $fillable = ['user_id', 'entry_path', 'participant_number', 'school_origin', 'graduation_year', 'study_program_id', 'registration_period_id',];
+  protected $fillable = [
+    'user_id',
+    'entry_path',
+    'participant_number',
+    'school_origin',
+    'graduation_year',
+    'study_program_id',
+    'registration_period_id',
+    'status_kelulusan',
+    'study_program_id_second',
+    'nim'
+  ];
 
   public function user()
   {

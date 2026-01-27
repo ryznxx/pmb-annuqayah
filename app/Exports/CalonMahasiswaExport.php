@@ -16,23 +16,27 @@ class CalonMahasiswaExport implements FromQuery, WithHeadings, WithMapping
   public function __construct($type, $periodId)
   {
     $this->type = $type;
-    $this->periodId = $periodId;
+    $this->periodId = (int) $periodId;
   }
 
   public function query()
   {
     $query = Registration::query()
-      ->with(['user.identity', 'studyProgram', 'user.validity', 'user.examSession'])
-      ->where('registration_period_id', $this->periodId);
+      ->with(['user.identity', 'studyProgram', 'user.validity', 'user.examSession']);
+
+    // Jika periodId ada isinya dan bukan 'all', baru difilter
+    if (!empty($this->periodId) && $this->periodId !== 'all') {
+      $query->where('registration_period_id', $this->periodId);
+    }
 
     return match ($this->type) {
-      'acc' => $query->whereHas('user.validity', fn($q) => $q->where('is_data_valid', 1)),
-      'pending_acc' => $query->whereHas('user.validity', fn($q) => $q->where('is_data_valid', 0)),
-      'cbt_done' => $query->whereHas('user.examSession', fn($q) => $q->where('status', 'done')),
-      'cbt_pending' => $query->whereDoesntHave('user.examSession', fn($q) => $q->where('status', 'done')),
-      'diterima' => $query->whereHas('user.validity', fn($q) => $q->where('final_status', 'valid')),
-      'tidak_diterima' => $query->whereHas('user.validity', fn($q) => $q->where('final_status', 'invalid')),
-      default => $query,
+      'acc'           => $query->whereHas('user.validity', fn($q) => $q->where('is_data_valid', 1)),
+      'pending_acc'   => $query->whereHas('user.validity', fn($q) => $q->where('is_data_valid', 0)),
+      'cbt_done'      => $query->whereHas('user.examSession', fn($q) => $q->where('status', 'done')),
+      'cbt_pending'   => $query->whereDoesntHave('user.examSession', fn($q) => $q->where('status', 'done')),
+      'diterima'       => $query->where('status_kelulusan', 'lulus'),
+      'tidak_diterima' => $query->where('status_kelulusan', 'tidak_lulus'),
+      default         => $query,
     };
   }
 

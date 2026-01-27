@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Settings;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class SettingsController extends Controller
 {
@@ -13,12 +14,15 @@ class SettingsController extends Controller
    */
   public function index()
   {
-    $rekening = Settings::select('rekening', 'nama_rekening', 'nama_bank', 'nowa')->first()
+    $rekening = Settings::select('rekening', 'nama_rekening', 'nama_bank', 'nowa', 'thumb1', 'thumb2', 'thumb3')->first()
       ?? (object) [
         'rekening' => null,
         'nama_bank' => null,
         'nama_rekening' => null,
         'nowa' => null,
+        'thumb1' => null,
+        'thumb2' => null,
+        'thumb3' => null,
       ];
 
     return view('admin.settings.index', compact('rekening'));
@@ -41,19 +45,35 @@ class SettingsController extends Controller
       'nama_bank'     => 'nullable|string',
       'nama_rekening' => 'nullable|string',
       'nowa'          => 'nullable|string',
+      'thumb1'        => 'nullable|image|mimes:jpeg,png,jpg|max:2048', // max 2MB
+      'thumb2'        => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+      'thumb3'        => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
     ]);
 
-    Settings::updateOrCreate(
-      ['id' => 1], // settings global = 1 row aja
-      [
-        'rekening'      => $request->rekening,
-        'nama_bank'     => $request->nama_bank,
-        'nama_rekening' => $request->nama_rekening,
-        'nowa'          => $request->nowa,
-      ]
-    );
+    $settings = Settings::find(1) ?? new Settings();
 
-    return redirect()->back();
+    $data = [
+      'rekening'      => $request->rekening,
+      'nama_bank'     => $request->nama_bank,
+      'nama_rekening' => $request->nama_rekening,
+      'nowa'          => $request->nowa,
+    ];
+
+    for ($i = 1; $i <= 3; $i++) {
+      $key = 'thumb' . $i;
+      if ($request->hasFile($key)) {
+        if ($settings->$key && Storage::disk('public')->exists($settings->$key)) {
+          Storage::disk('public')->delete($settings->$key);
+        }
+
+        $path = $request->file($key)->store('settings', 'public');
+        $data[$key] = $path;
+      }
+    }
+
+    Settings::updateOrCreate(['id' => 1], $data);
+
+    return redirect()->back()->with('success', 'Pengaturan berhasil diperbarui.');
   }
 
 

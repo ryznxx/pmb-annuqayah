@@ -116,17 +116,19 @@
                     <div
                         class="relative w-full h-[550px] bg-white/40 backdrop-blur-md rounded-[3rem] border border-white/50 shadow-2xl overflow-hidden p-6">
                         <div class="flex flex-col h-full gap-4">
-
+                            @php
+                                use App\Models\Settings;
+                                $settings = Settings::first();
+                            @endphp
                             <div class="grid grid-cols-2 gap-4 h-3/4">
                                 <div class="overflow-hidden rounded-[2rem] shadow-sm border border-white/50">
-                                    <img src="https://ua.ac.id/wp-content/uploads/2024/05/WhatsApp_Image_2024-05-01_at_11_29_22-1536x1152.jpeg"
-                                        class="w-full h-full object-cover transform hover:scale-110 transition duration-700"
-                                        alt="Kampus">
+                                    <img class="w-full h-full object-cover transform hover:scale-110 transition duration-700"
+                                        alt="Kampus" src="{{ asset('storage/' . $settings->thumb1) }}">
                                 </div>
 
                                 <div class="flex flex-col gap-4">
                                     <div class="h-1/2 overflow-hidden rounded-[2rem] shadow-sm border border-white/50">
-                                        <img src="https://i.ytimg.com/vi/9uAnSrwX4ew/maxresdefault.jpg"
+                                        <img src="{{ asset('storage/' . $settings->thumb2) }}"
                                             class="w-full h-full object-cover transform hover:scale-110 transition duration-700"
                                             alt="Kegiatan">
                                     </div>

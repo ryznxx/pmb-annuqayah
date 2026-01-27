@@ -27,6 +27,7 @@ class MasterCalonMahasiswaExport implements FromQuery, WithHeadings, WithMapping
   {
     return [
       'No. Peserta',
+      'NIM',
       'Nama Lengkap',
       'Email',
       'NIK',
@@ -42,7 +43,8 @@ class MasterCalonMahasiswaExport implements FromQuery, WithHeadings, WithMapping
       'Pekerjaan Ayah',
       'Nama Ibu',
       'Status Bayar',
-      'Status Verifikasi'
+      'Status Verifikasi Data',
+      'Lulus'
     ];
   }
 
@@ -50,6 +52,7 @@ class MasterCalonMahasiswaExport implements FromQuery, WithHeadings, WithMapping
   {
     return [
       $reg->participant_number,
+      $reg->registration->nim ?? '-',
       $reg->user->identity->full_name ?? $reg->user->name,
       $reg->user->email,
       $reg->user->identity->nik ?? '-',
@@ -65,7 +68,8 @@ class MasterCalonMahasiswaExport implements FromQuery, WithHeadings, WithMapping
       $reg->studentFamily->pekerjaan_ayah ?? '-',
       $reg->studentFamily->nama_ibu ?? '-',
       $reg->user->payment->status ?? 'Belum Bayar',
-      $reg->user->validity->status_verifikasi ?? 'Pending',
+      $reg->user->validity->final_status == "valid" ? "Terverifikasi" : "Invalid",
+      $reg->user->registration->status_kelulusan ?? 'Pending',
     ];
   }
 }

@@ -37,8 +37,30 @@
                 </div>
             @endif
 
-            <form action="{{ route('student.store') }}" method="POST" enctype="multipart/form-data" class="space-y-8">
+            <form action="{{ route('admin.pendaftar.edit.store', $user->id) }}" method="POST"
+                enctype="multipart/form-data" class="space-y-8">
                 @csrf
+
+                <div
+                    class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden {{ $isLocked ? 'opacity-70' : '' }}">
+                    <div class="p-6 border-b border-slate-100 bg-slate-50/50">
+                        <h2 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+                            <span class="material-symbols-outlined text-indigo-500">school</span>
+                            Calon Mahasiswa
+                        </h2>
+                    </div>
+                    <div class="p-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="md:col-span-2">
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">NIM (NOMOR INDUK MAHASISWA
+                                baru)</label>
+                            <i class="text-sm text-gray-500">nantinya nim ini akan dimasukkan kedalam database</i>
+                            <input type="text" name="nim"
+                                value="{{ old('nim', $user->registration->nim ?? ($user->registration->nim ?? '')) }}"
+                                {{ $isLocked ? 'readonly' : '' }}
+                                class="w-full px-4 py-3 rounded-xl border-slate-200 transition-all {{ $isLocked ? 'bg-slate-50 text-slate-500' : 'focus:border-indigo-500 focus:ring-indigo-500' }}">
+                        </div>
+                    </div>
+                </div>
 
                 <div
                     class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden {{ $isLocked ? 'opacity-70' : '' }}">
@@ -57,9 +79,6 @@
                                 {{ $isLocked ? 'readonly' : '' }}
                                 class="w-full px-4 py-3 rounded-xl border-slate-200 transition-all {{ $isLocked ? 'bg-slate-50 text-slate-500' : 'focus:border-indigo-500 focus:ring-indigo-500' }}">
                         </div>
-
-
-
                         <div>
                             <label class="block text-sm font-semibold text-slate-700 mb-2">Tempat Lahir</label>
                             <input type="text" name="birth_place"
@@ -177,7 +196,8 @@
                         </div>
 
                         <div>
-                            <label class="block text-sm font-semibold text-slate-700 mb-2">Pilihan Program Studi</label>
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">Pilihan Program
+                                Studi</label>
                             <select name="study_program" {{ $isLocked ? 'disabled' : '' }}
                                 class="w-full px-4 py-3 rounded-xl border-slate-200 {{ $isLocked ? 'bg-slate-50' : 'focus:border-indigo-500 focus:ring-indigo-500' }}">
                                 <option value="">Pilih Jurusan</option>
@@ -325,7 +345,8 @@
                                     @endif
 
                                     @if ($field->description && !$isLocked)
-                                        <p class="mt-1 text-xs text-slate-400 italic">*{{ $field->description }}</p>
+                                        <p class="mt-1 text-xs text-slate-400 italic">*{{ $field->description }}
+                                        </p>
                                     @endif
                                 </div>
                             @endforeach

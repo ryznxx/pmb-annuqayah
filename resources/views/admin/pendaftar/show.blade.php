@@ -17,7 +17,53 @@
                     <span class="material-symbols-outlined" style="font-size: 32px;">settings_accessibility</span>
                 </div>
                 <div>
-                    <h2 class="text-xl font-bold text-slate-900 leading-tight">Keputusan Akhir</h2>
+                    <h2 class="text-xl font-bold text-slate-900 leading-tight">Keputusan Akhir Kelulusan</h2>
+                    <p class="text-xs text-slate-500 font-medium italic">Status Kelulusan:
+                        @php
+                            // Ambil status lulus dari relasi pendaftaran
+                            $statusLulus = $user->registration?->status_kelulusan ?? 'pending';
+                        @endphp
+                        <span
+                            class="font-bold uppercase 
+                    {{ $statusLulus == 'lulus' ? 'text-emerald-600' : ($statusLulus == 'tidak_lulus' ? 'text-rose-600' : 'text-amber-600') }}">
+                            {{ str_replace('_', ' ', $statusLulus) }}
+                        </span>
+                    </p>
+                </div>
+            </div>
+
+            {{-- Keputusan Kelulusan --}}
+            <div class="flex gap-2 bg-slate-100 p-1.5 rounded-2xl">
+                <form action="{{ route('admin.pendaftar.validate', $user->id) }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="set_graduation" value="lulus"> {{-- Ganti Name & Value --}}
+                    <button type="submit"
+                        class="px-6 py-2.5 rounded-xl text-xs font-bold transition-all 
+            {{ $statusLulus === 'lulus' ? 'bg-emerald-600 text-white shadow-lg' : 'text-slate-500 hover:bg-white' }}">
+                        LULUS
+                    </button>
+                </form>
+
+                <form action="{{ route('admin.pendaftar.validate', $user->id) }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="set_graduation" value="tidak_lulus"> {{-- Ganti Name & Value --}}
+                    <button type="submit"
+                        class="px-6 py-2.5 rounded-xl text-xs font-bold transition-all 
+            {{ $statusLulus === 'tidak_lulus' ? 'bg-rose-600 text-white shadow-lg' : 'text-slate-500 hover:bg-white' }}">
+                        TIDAK LULUS
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div
+            class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm mb-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-4">
+                <div class="p-3 bg-indigo-50 rounded-xl text-indigo-600">
+                    <span class="material-symbols-outlined" style="font-size: 32px;">settings_accessibility</span>
+                </div>
+                <div>
+                    <h2 class="text-xl font-bold text-slate-900 leading-tight">Keputusan Akhir Verifikasi Data</h2>
                     <p class="text-xs text-slate-500 font-medium italic">Status saat ini:
                         <span
                             class="font-bold {{ $user->status == 'valid' ? 'text-emerald-600' : ($user->status == 'invalid' ? 'text-rose-600' : 'text-amber-600') }} uppercase">
@@ -181,7 +227,8 @@
                                 {{ $user->registration?->school_origin ?? '-' }}</p>
                         </div>
                         <div>
-                            <label class="text-[10px] font-bold text-slate-400 uppercase block mb-1">Tahun Lulus</label>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase block mb-1">Tahun
+                                Lulus</label>
                             <p class="text-sm font-bold text-slate-800">
                                 {{ $user->registration?->graduation_year ?? '-' }}</p>
                         </div>

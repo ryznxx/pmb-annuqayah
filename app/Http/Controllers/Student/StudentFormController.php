@@ -150,6 +150,7 @@ class StudentFormController extends Controller
   {
     $user = Auth::user();
 
+
     $request->validate([
       // Identity & Registration
       'full_name'   => 'required|string|max:255',
@@ -179,6 +180,7 @@ class StudentFormController extends Controller
       'study_program_second.required' => 'Pilihan Program Studi 2 wajib diisi.',
     ]);
 
+
     DB::transaction(function () use ($request, $user) {
       // A. Update Identity
       $user->identity()->updateOrCreate(['user_id' => $user->id], [
@@ -192,6 +194,7 @@ class StudentFormController extends Controller
       // B. Update Registration
       $registration = $user->registration()->updateOrCreate(['user_id' => $user->id], [
         'entry_path'         => $request->entry_path,
+        'nisn'           => $request->nisn,
         'participant_number' => $request->participant_number,
         'school_origin'      => $request->school_origin,
         'graduation_year'    => $request->graduation_year,
@@ -211,6 +214,7 @@ class StudentFormController extends Controller
       $registration->studentDetails()->updateOrCreate(['registration_id' => $registration->id], [
         'kewarganegaraan'            => $request->kewarganegaraan,
         'npwp'                       => $request->npwp,
+        'nisn'                       => $request->nisn,
         'jalan'                      => $request->jalan,
         'dusun'                      => $request->dusun,
         'rt'                         => $request->rt,

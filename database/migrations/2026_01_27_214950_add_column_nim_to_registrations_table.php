@@ -11,12 +11,8 @@ return new class extends Migration
    */
   public function up(): void
   {
-    Schema::create('thumbintro', function (Blueprint $table) {
-      $table->id();
-      $table->string('title');
-      $table->text('description');
-      $table->string('image_path');
-      $table->timestamps();
+    Schema::table('registrations', function (Blueprint $table) {
+      $table->string('nim')->nullable()->after('participant_number');
     });
   }
 
@@ -25,6 +21,8 @@ return new class extends Migration
    */
   public function down(): void
   {
-    Schema::dropIfExists('thumbintro');
+    Schema::table('registrations', function (Blueprint $table) {
+      $table->dropColumn('nim');
+    });
   }
 };
