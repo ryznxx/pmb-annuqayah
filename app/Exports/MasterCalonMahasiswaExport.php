@@ -67,9 +67,9 @@ class MasterCalonMahasiswaExport implements FromQuery, WithHeadings, WithMapping
       $reg->studentFamily->nama_ayah ?? '-',
       $reg->studentFamily->pekerjaan_ayah ?? '-',
       $reg->studentFamily->nama_ibu ?? '-',
-      $reg->user->payment->status ?? 'Belum Bayar',
-      $reg->user->validity->final_status == "valid" ? "Terverifikasi" : "Invalid",
-      $reg->user->registration->status_kelulusan ?? 'Pending',
+      $reg->user->payment?->status ?? 'Belum Bayar',
+      $reg->user->validity?->final_status == "valid" ? "Terverifikasi" : "Invalid",
+      $reg->user->registration?->status_kelulusan ?? 'Pending',
     ];
   }
 }

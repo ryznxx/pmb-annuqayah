@@ -49,12 +49,14 @@ class CalonMahasiswaExport implements FromQuery, WithHeadings, WithMapping
   {
     return [
       $registration->participant_number ?? '-',
-      $registration->user->identity->full_name ?? $registration->user->name,
-      $registration->user->identity->nik ?? $registration->user->nik,
-      $registration->studyProgram->name ?? '-',
-      $registration->school_origin,
-      $registration->graduation_year,
-      $registration->user->validity->is_data_valid ? 'Terverifikasi' : 'Belum Verifikasi',
+      // Gunakan ?-> agar jika identity null, tidak error crash
+      $registration->user->identity?->full_name ?? $registration->user->name ?? '-',
+      $registration->user->identity?->nik ?? $registration->user->nik ?? '-',
+      $registration->studyProgram?->name ?? '-',
+      $registration->school_origin ?? '-',
+      $registration->graduation_year ?? '-',
+      // INI DIA TERSANGKANYA: Tambahkan ?-> sebelum is_data_valid
+      ($registration->user->validity?->is_data_valid) ? 'Terverifikasi' : 'Belum Verifikasi',
     ];
   }
 }
