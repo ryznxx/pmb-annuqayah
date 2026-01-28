@@ -21,6 +21,7 @@ class StudentDetails extends Model
     'kecamatan',
     'kode_pos',
     'telepon',
+    'kabupaten_kota',
     'hp',
     'email',
     'penerima_kps',

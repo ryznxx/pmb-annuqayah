@@ -161,7 +161,7 @@ class StudentFormController extends Controller
       'entry_path'  => 'required',
       'study_program' => 'required',
       'study_program_second' => 'required',
-
+      'kabupaten_kota'  => 'required|string',
       'kewarganegaraan' => 'required|string',
       'nisn'            => 'required|digits:10',
       'hp'              => 'required|numeric',
@@ -219,6 +219,7 @@ class StudentFormController extends Controller
         'dusun'                      => $request->dusun,
         'rt'                         => $request->rt,
         'rw'                         => $request->rw,
+        'kabupaten_kota'             => $request->kabupaten_kota,
         'kelurahan'                  => $request->kelurahan,
         'kecamatan'                  => $request->kecamatan,
         'kode_pos'                   => $request->kode_pos,

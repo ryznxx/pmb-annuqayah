@@ -145,13 +145,13 @@
 
         <div>
             <label class="block text-sm font-semibold text-slate-700 mb-2">Penerima KPS</label>
-            <select name="kewarganegaraan" {{ $isLocked ? 'disabled' : '' }}
+            <select name="penerima_kps" {{ $isLocked ? 'disabled' : '' }}
                 class="w-full px-4 py-3 rounded-xl border-slate-200 {{ $isLocked ? 'bg-slate-50 text-slate-500' : '' }}">
                 <option value="Iya"
-                    {{ old('kewarganegaraan', $user->registration->studentDetails->penerima_kps ?? '') == 'Iya' ? 'selected' : '' }}>
+                    {{ old('penerima_kps', $user->registration->studentDetails->penerima_kps ?? '') == 'Iya' ? 'selected' : '' }}>
                     Iya</option>
                 <option value="Tidak"
-                    {{ old('kewarganegaraan', $user->registration->studentDetails->penerima_kps ?? '') == 'Tidak' ? 'selected' : '' }}>
+                    {{ old('penerima_kps', $user->registration->studentDetails->penerima_kps ?? '') == 'Tidak' ? 'selected' : '' }}>
                     Tidak</option>
             </select>
         </div>
@@ -169,6 +169,15 @@
                 {{ $isLocked ? 'readonly' : '' }} placeholder="Masukkan alat transportasi"
                 class="w-full px-4 py-3 rounded-xl border-slate-200 {{ $isLocked ? 'bg-slate-50 text-slate-500' : '' }} @error('nisn') border-red-500 @enderror">
         </div>
+
+        <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">Kabupaten/Kota</label>
+            <input type="text" name="kabupaten_kota"
+                value="{{ old('kabupaten_kota', $user->registration->studentDetails->kabupaten_kota ?? '') }}"
+                {{ $isLocked ? 'readonly' : '' }} placeholder="Masukkan kabupaten/kota"
+                class="w-full px-4 py-3 rounded-xl border-slate-200 {{ $isLocked ? 'bg-slate-50 text-slate-500' : '' }} @error('nisn') border-red-500 @enderror">
+        </div>
+
         <div>
             <label class="block text-sm font-semibold text-slate-700 mb-2">Jenis Tinggal</label>
             <input type="text" name="jenis_tinggal"
